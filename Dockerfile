@@ -5,4 +5,4 @@ RUN npm install
 COPY . .
 RUN npm run build --if-present
 EXPOSE 8080
-CMD [ "npx", "ts-node", "server.ts" ]
+CMD [ "node", "dist/server.cjs" ]
