@@ -186,12 +186,12 @@ app.post("/api/save-me", async (req, res) => {
   }
 });
 
-if (process.env.NODE_ENV === "production" || true) {
-  app.use(express.static(path.join(__dirname, "dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "dist", "index.html"));
-  });
-}
+// FIXED: Adjusted static serving paths because server.cjs is bundled inside the dist directory
+const publicPath = path.join(__dirname);
+app.use(express.static(publicPath));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(publicPath, "index.html"));
+});
 
 app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`Server is operating on port ${PORT}`);
